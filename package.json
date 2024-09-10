@@ -1,0 +1,16 @@
+{
+  "name": "mydigidiary-mvps",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.15",
+    "react-router-dom": "^6.26.1"
+  },
+  "description": "**Project by Umar Farouk Abdulai**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Umar Farouk Abdulai",
+  "license": "ISC"
+}
