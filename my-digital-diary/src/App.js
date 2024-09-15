@@ -3,7 +3,6 @@ import axios from 'axios'; // Import Axios
 import logo from './A6-Notebook.png'; // Import logo
 import Login from './components/Login';
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [journalEntries, setJournalEntries] = useState([]);
@@ -205,4 +204,16 @@ const styles = {
     color: '#fff',
     width: '100%',
     borderTop: '1px solid #ccc',
+  },
+  socialLinks: {
+    marginBottom: '10px',
+  },
+  socialLink: {
+    color: '#fff',
+    textDecoration: 'none',
+    margin: '0 10px',
+  },
+};
+
+export default App;
 
