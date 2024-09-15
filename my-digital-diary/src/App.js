@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Import Axios
+import logo from './A6-Notebook.png'; // Import logo
+import Login from './components/Login';
+
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
-  const [journalEntries, setJournalEntries] = useState([]); // State to store journal entries
-  const [newEntry, setNewEntry] = useState(''); // State for new journal entry
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [journalEntries, setJournalEntries] = useState([]);
+  const [newEntry, setNewEntry] = useState('');
+  const [backendMessage, setBackendMessage] = useState('');
+
+  // Fetch data from backend on component mount
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/test')
+      .then(response => setBackendMessage(response.data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
   const handleLogin = () => setIsLoggedIn(true);
   const handleLogout = () => setIsLoggedIn(false);
@@ -21,6 +32,7 @@ function App() {
     <div className="App" style={styles.appContainer}>
       <header style={styles.header}>
         <nav style={styles.navbar}>
+          <img src={logo} alt="A6-Notebook Logo" style={styles.logo} />
           <h1 style={styles.title}>My Digital Diary</h1>
           <div style={styles.navLinks}>
             <a href="#home" style={styles.navLink}>Home</a>
@@ -59,10 +71,15 @@ function App() {
           </div>
         ) : (
           <div style={styles.guestSection}>
-            <h2>Welcome to My Digital Diary</h2>
-            <p>Capture your thoughts, memories, and daily reflections with ease. My Digital Diary provides a secure and user-friendly platform for journaling, mood tracking, and personal growth. Whether you are documenting everyday moments or special events, our app offers a private space where you can reflect, organize, and express yourself freely.</p>
+            <div style={styles.logoContainer}>
+              <div style={styles.textOverlay}>
+                <h2>Welcome to My Digital Diary</h2>
+                <p>Capture your thoughts, memories, and daily reflections with ease. My Digital Diary provides a secure and user-friendly platform for journaling, mood tracking, and personal growth. Whether you are documenting everyday moments or special events, our app offers a private space where you can reflect, organize, and express yourself freely.</p>
+              </div>
+            </div>
           </div>
         )}
+        <p>{backendMessage}</p> {/* Display message from backend */}
       </main>
 
       <footer style={styles.footer}>
@@ -82,7 +99,7 @@ function App() {
 
 const styles = {
   appContainer: {
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#00bcd4',
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
@@ -99,6 +116,11 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  logo: {
+    width: '50px',
+    height: '50px',
+    marginRight: '20px',
   },
   title: {
     fontSize: '1.8rem',
@@ -183,17 +205,4 @@ const styles = {
     color: '#fff',
     width: '100%',
     borderTop: '1px solid #ccc',
-  },
-  socialLinks: {
-    marginBottom: '10px',
-  },
-  socialLink: {
-    color: '#4CAF50',
-    textDecoration: 'none',
-    margin: '0 10px',
-    fontWeight: 'bold',
-  },
-};
-
-export default App;
 
